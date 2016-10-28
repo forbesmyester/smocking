@@ -1,0 +1,35 @@
+{
+  "name": "smocking",
+  "version": "0.9.0",
+  "description": "Functional mocking library",
+  "directories": {
+    "src": "src",
+    "test": "test"
+  },
+  "main": "./dist/src/index.js",
+  "typings": "./dist/src/index.d.ts",
+  "scripts": {
+    "test": "tsc && tslint src/**/*.ts test/**/*.ts && ava ./dist/test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:forbesmyester/smocking.git"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.45",
+    "@types/ramda": "0.0.2",
+    "ava": "^0.16.0",
+    "source-map-support": "^0.4.2",
+    "tslint": "^3.15.1",
+    "typescript": "^2.0.3"
+  },
+  "author": "Matthew Forrester <github.com@speechmarks.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/forbesmyester/smocking/issues"
+  },
+  "homepage": "https://github.com/forbesmyester/smocking",
+  "dependencies": {
+    "ramda": "^0.22.1"
+  }
+}
