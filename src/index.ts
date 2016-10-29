@@ -1,50 +1,25 @@
-export interface CheckProps {
-    callIndex?: number;
-}
-export type Check = (checkProps: CheckProps) => boolean;
-
-export type Smocking = {
-    add: (check: Check) => Smocking;
-    returns: (returns: any) => Smocking;
-    calls: (n: number, ctx: any, params: any[]) => Smocking;
-    specs: Spec[];
-    get: Function;
-    invocations: Invocation[];
-}
-
-export type Invocation = {
-    checkIndex: number;
-    params: any[];
-    called: null|number;
-    returned: any;
-}
-
-
-export interface Spec {
-    check: Check;
-    returns?: any;
-    calls?: { paramIndex: number, ctx: any, withParams: any[] }
-}
+import { Smocking, CheckProps, Check, Invocation, Spec } from  './types';
 
 
 export default function smocking(): Smocking {
 
-    let that:Smocking = <Smocking>{};
+    let specs: Spec[] = [];
+    let callIndex = 0;
 
-    that.specs = [];
+    let that: Smocking = <Smocking>{};
 
     that.add = (check: Check) => {
-        that.specs.push({check});
+        specs.push({check});
         return that;
     };
 
     that.returns = (returns: any) => {
-        that.specs[that.specs.length - 1].returns = returns;
+        specs[specs.length - 1].returns = returns;
         return that;
     };
 
     that.calls = (paramIndex, ctx, withParams) => {
-        that.specs[that.specs.length - 1].calls = {
+        specs[specs.length - 1].calls = {
             paramIndex,
             ctx,
             withParams
@@ -57,9 +32,10 @@ export default function smocking(): Smocking {
     that.get = () => {
         return (...args) => {
             let i = 0;
-            for (i = 0; i < that.specs.length; i++) {
-                if (that.specs[i].check) {
-                    let s = that.specs[i];
+            for (i = 0; i < specs.length; i++) {
+                if (specs[i].check({callIndex})) {
+                    callIndex = callIndex + 1;
+                    let s = specs[i];
                     let called: null|number = null;
                     if (s.calls) {
                         called = s.calls.paramIndex;

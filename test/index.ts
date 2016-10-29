@@ -8,9 +8,9 @@ test('Can call a smocked function', function(t) {
         .add(({callIndex}) => { return callIndex < 2; })
         .returns(42)
         .calls(3, "HELLO", [null, 'OK'])
-        .add(({callIndex}) => { return true })
+        .add(({callIndex}) => { return true; })
         .returns(43)
-        .calls(1, "GOOD MORNING", [null, 'WHO ARE YOU?'])
+        .calls(1, "GOOD MORNING", [null, 'WHO ARE YOU?']);
 
     let f = s.get();
     let that: string[] = [];
