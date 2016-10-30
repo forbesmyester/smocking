@@ -29,7 +29,5 @@
     "url": "https://github.com/forbesmyester/smocking/issues"
   },
   "homepage": "https://github.com/forbesmyester/smocking",
-  "dependencies": {
-    "ramda": "^0.22.1"
-  }
+  "dependencies": {}
 }
